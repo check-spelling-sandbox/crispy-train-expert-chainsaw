@@ -8,10 +8,16 @@ on:
 jobs:
   apt:
     runs-on: ubuntu-latest
+    permissions: ''
     steps:
       - uses: step-security/harden-runner@c6295a65d1254861815972266d5933fd6e532bdf # v2.11.1
+        name: Harden Runner
         with:
-          egress-policy: audit
+          egress-policy: block
+          allowed-endpoints: >
+            archive.ubuntu.com:443
+            esm.ubuntu.com:443
+            packages.microsoft.com:443
       - name: look at sources
         run: |
           (
