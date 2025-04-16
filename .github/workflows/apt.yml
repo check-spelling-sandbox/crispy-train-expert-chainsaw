@@ -8,7 +8,7 @@ on:
 jobs:
   apt:
     runs-on: ubuntu-latest
-    permissions: ''
+    permissions: {}
     steps:
       - uses: step-security/harden-runner@c6295a65d1254861815972266d5933fd6e532bdf # v2.11.1
         name: Harden Runner
