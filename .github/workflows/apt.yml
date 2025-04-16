@@ -37,7 +37,7 @@ jobs:
                 echo /etc/apt/sources.list
             fi
           )
-          sed -i 's/http:\/\/azure.archive.ubuntu.com\/ubuntu\//mirror+file:\/etc\/apt\/apt-mirrors.txt/' "$ubuntu_sources"
+          sudo sed -i 's/http:\/\/azure.archive.ubuntu.com\/ubuntu\//mirror+file:\/etc\/apt\/apt-mirrors.txt/' "$ubuntu_sources"
           (
             for a in "$ubuntu_sources"; do
               echo '# '$(basename $a)
