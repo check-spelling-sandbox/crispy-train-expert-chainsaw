@@ -12,7 +12,7 @@ jobs:
       - name: look at sources
         run: |
           (
-            for a in /etc/apt/sources.list.d/* /etc/apt/sources.list; do
+            for a in /etc/apt/sources.list.d/* /etc/apt/sources.list /etc/apt/apt-mirrors.txt; do
               echo '# '$(basename $a)
               echo
               echo '```'
