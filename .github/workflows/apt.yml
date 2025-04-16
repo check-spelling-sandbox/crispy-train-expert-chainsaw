@@ -1,0 +1,23 @@
+name: apt
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  apt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: look at sources
+        run: |
+          (
+            for a in /etc/apt/sources.list.d/* /etc/apt/sources.list; do
+              echo '# '$(basename $a)
+              echo
+              echo '```'
+              cat $a
+              echo '```'
+              echo
+            done
+          ) >> "$GITHUB_STEP_SUMMARY"
