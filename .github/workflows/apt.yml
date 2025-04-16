@@ -25,6 +25,30 @@ jobs:
         run: |
           sudo apt-get update
 
+      - name: rewrite ubuntu.sources
+        run: |
+          is_ubuntu24() {
+              lsb_release -rs | grep -q '24.04'
+          }
+          ubuntu_sources=$(
+            if is_ubuntu24; then
+                echo /etc/apt/sources.list.d/ubuntu.sources
+            else
+                echo /etc/apt/sources.list
+            fi
+          )
+          sed -i 's/http:\/\/azure.archive.ubuntu.com\/ubuntu\//mirror+file:\/etc\/apt\/apt-mirrors.txt/' "$ubuntu_sources"
+          (
+            for a in "$ubuntu_sources"; do
+              echo '# '$(basename $a)
+              echo
+              echo '```'
+              cat $a
+              echo '```'
+              echo
+            done
+          ) >> "$GITHUB_STEP_SUMMARY"
+
       - name: rewrite sources
         run: |
           (
