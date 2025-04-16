@@ -21,3 +21,31 @@ jobs:
               echo
             done
           ) >> "$GITHUB_STEP_SUMMARY"
+      - name: update
+        run: |
+          apt-get update
+
+      - name: rewrite sources
+        run: |
+          (
+            printf "http://azure.archive.ubuntu.com/ubuntu/\tpriority:4\n"
+            printf "https://archive.ubuntu.com/ubuntu/\tpriority:2\n"
+            printf "https://security.ubuntu.com/ubuntu/\tpriority:3\n"
+          ) | sudo tee /etc/apt/apt-mirrors.txt
+
+      - name: update
+        run: |
+          apt-get update
+
+      - name: rewrite sources
+        run: |
+          (
+            printf "http://azure.archive.ubuntu.com/not-ubuntu/\tpriority:1\n"
+            printf "https://archive.ubuntu.com/ubuntu/\tpriority:2\n"
+            printf "https://security.ubuntu.com/ubuntu/\tpriority:3\n"
+          ) | sudo tee /etc/apt/apt-mirrors.txt
+
+      - name: update
+        run: |
+          apt-get update
+
